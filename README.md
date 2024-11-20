@@ -3,6 +3,9 @@
 
 **LeoAndRuby** is a Ruby gem for generating images using the [Leonardo.ai API](https://docs.leonardo.ai/docs/generate-your-first-images). With this gem, you can easily integrate Leonardo.ai's powerful image generation capabilities into your Ruby applications.
 
+[![Gem Version](https://badge.fury.io/rb/leoandruby.svg)](https://badge.fury.io/rb/leoandruby)
+
+
 ---
 
 ## Features
