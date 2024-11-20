@@ -1,8 +1,4 @@
-# frozen_string_literal: true
+#lib/leoandruby.rb
 
-require_relative "leoandruby/version"
+require_relative 'leoandruby/client'
 
-module Leoandruby
-  class Error < StandardError; end
-  # Your code goes here...
-end

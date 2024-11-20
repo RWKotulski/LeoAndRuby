@@ -1,39 +1,163 @@
-# Leoandruby
 
-TODO: Delete this and the text below, and describe your gem
+# LeoAndRuby
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/leoandruby`. To experiment with that code, run `bin/console` for an interactive prompt.
+**LeoAndRuby** is a Ruby gem for generating images using the [Leonardo.ai API](https://docs.leonardo.ai/docs/generate-your-first-images). With this gem, you can easily integrate Leonardo.ai's powerful image generation capabilities into your Ruby applications.
+
+---
+
+## Features
+
+- Generate images using Leonardo.ai's models.
+- Retrieve the status and result of a generated image.
+- Simple and intuitive Ruby interface for interacting with the Leonardo.ai API.
+
+---
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+Add this line to your application's Gemfile:
 
-Install the gem and add to the application's Gemfile by executing:
+```ruby
+gem 'leoandruby'
+```
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+Then, run:
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+```bash
+bundle install
+```
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+Or install it yourself with:
+
+```bash
+gem install leoandruby
+```
+
+---
+
+## Setup
+
+To use LeoAndRuby, you need an API key from Leonardo.ai. You can obtain it by signing up for an account and navigating to the API key section in your dashboard.
+
+---
 
 ## Usage
 
-TODO: Write usage instructions here
+### 1. Initialize the Client
 
-## Development
+Start by creating a client instance with your Leonardo.ai API key:
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```ruby
+require 'leoandruby'
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+api_key = 'YOUR_API_KEY'
+client = LeoAndRuby::Client.new(api_key)
+```
+
+### 2. Generate an Image
+
+You can generate an image by providing the prompt, model ID, width, and height:
+
+```ruby
+generation_response = client.generate_image(
+  prompt: 'An oil painting of a cat',
+  model_id: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
+  width: 512,
+  height: 512
+)
+
+generation_id = generation_response['sdGenerationJob']['generationId']
+```
+
+### 3. Retrieve the Generated Image
+
+Wait a few seconds for the image to be generated, then retrieve it using the generation ID:
+
+```ruby
+sleep(5)
+
+image_response = client.get_generation(generation_id)
+puts image_response
+```
+
+---
+
+## Configuration
+
+### Environment Variables
+
+You can store your API key in an environment variable for security:
+
+```bash
+export LEOANDRUBY_API_KEY=your_api_key
+```
+
+Then, retrieve it in your code:
+
+```ruby
+api_key = ENV['LEOANDRUBY_API_KEY']
+client = LeoAndRuby::Client.new(api_key)
+```
+
+---
+
+## Example Script
+
+Here's a full example script:
+
+```ruby
+require 'leoandruby'
+
+api_key = 'YOUR_API_KEY'
+client = LeoAndRuby::Client.new(api_key)
+
+# Generate an image
+generation_response = client.generate_image(
+  prompt: 'A futuristic cityscape at sunset',
+  model_id: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
+  width: 1024,
+  height: 768
+)
+
+generation_id = generation_response['sdGenerationJob']['generationId']
+
+# Wait for a few seconds
+sleep(5)
+
+# Retrieve the generated image
+image_response = client.get_generation(generation_id)
+puts image_response
+```
+
+---
+
+## Supported Ruby Versions
+
+LeoAndRuby is tested with the latest Ruby versions. Ensure your environment is up to date to avoid compatibility issues.
+
+---
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/leoandruby. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/leoandruby/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on [GitHub](https://github.com/RWKotulski/leoandruby). This project is intended to be a safe, welcoming space for collaboration.
+
+---
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
-## Code of Conduct
+---
 
-Everyone interacting in the Leoandruby project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/leoandruby/blob/main/CODE_OF_CONDUCT.md).
+## References
+
+- [Leonardo.ai API Documentation](https://docs.leonardo.ai/)
+- [RubyGems Documentation](https://guides.rubygems.org/)
+
+---
+
+## Acknowledgments
+
+Special thanks to [Leonardo.ai](https://leonardo.ai/) for providing such an amazing image generation API.
+```
+
