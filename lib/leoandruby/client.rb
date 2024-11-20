@@ -1,5 +1,3 @@
-# lib/leoandruby/client.rb
-
 require 'net/http'
 require 'json'
 require 'uri'
@@ -54,4 +52,7 @@ module LeoAndRuby
         JSON.parse(response.body)
       else
         raise "HTTP Error: #{response.code} - #{response.message}"
- 
+      end
+    end
+  end
+end
