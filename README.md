@@ -59,14 +59,15 @@ client = LeoAndRuby::Client.new(api_key)
 
 ### 2. Generate an Image
 
-You can generate an image by providing the prompt, model ID, width, and height:
+You can generate an image by providing the prompt, model ID, width, height, and optionally the number of images:
 
 ```ruby
 generation_response = client.generate_image(
   prompt: 'An oil painting of a cat',
   model_id: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
   width: 512,
-  height: 512
+  height: 512,
+  num_images: 1 # Optional, defaults to 1 if not specified
 )
 
 generation_id = generation_response['sdGenerationJob']['generationId']
@@ -119,7 +120,8 @@ generation_response = client.generate_image(
   prompt: 'A futuristic cityscape at sunset',
   model_id: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
   width: 1024,
-  height: 768
+  height: 768,
+  num_images: 1 # Optional, defaults to 1 if not specified
 )
 
 generation_id = generation_response['sdGenerationJob']['generationId']
