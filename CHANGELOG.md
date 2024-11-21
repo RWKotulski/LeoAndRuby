@@ -15,3 +15,7 @@
 ## [0.2.0] - 2024-11-22
 
 - Added: New Feature allows user to specify how many images to generate, defaulting to 1.
+
+## [0.2.1] - 2024-11-22
+
+- Fixed: Fixed issue with gemfile preventing bundle install functioning properly.
