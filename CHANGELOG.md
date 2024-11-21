@@ -19,3 +19,7 @@
 ## [0.2.1] - 2024-11-22
 
 - Fixed: Fixed issue with gemfile preventing bundle install functioning properly.
+
+## [0.2.2] - 2024-11-22
+
+- Fixed: Another bug
