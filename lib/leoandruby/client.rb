@@ -1,10 +1,10 @@
-require 'net/http'
-require 'json'
-require 'uri'
+require "net/http"
+require "json"
+require "uri"
 
 module LeoAndRuby
   class Client
-    API_BASE_URL = 'https://cloud.leonardo.ai/api/rest/v1'.freeze
+    API_BASE_URL = "https://cloud.leonardo.ai/api/rest/v1".freeze
 
     def initialize(api_key)
       @api_key = api_key
@@ -13,9 +13,9 @@ module LeoAndRuby
     def generate_image(prompt:, model_id:, width:, height:)
       uri = URI("#{API_BASE_URL}/generations")
       request = Net::HTTP::Post.new(uri)
-      request['Accept'] = 'application/json'
-      request['Authorization'] = "Bearer #{@api_key}"
-      request['Content-Type'] = 'application/json'
+      request["Accept"] = "application/json"
+      request["Authorization"] = "Bearer #{@api_key}"
+      request["Content-Type"] = "application/json"
 
       request.body = {
         prompt: prompt,

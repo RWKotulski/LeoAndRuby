@@ -22,11 +22,11 @@ Gem::Specification.new do |spec|
 
   # Optional, in case you want to highlight features
   spec.metadata["features"] = <<~FEATURES
-  - Generate stunning AI-powered images with minimal configuration.
-  - Simple Ruby interface for interacting with the Leonardo.ai API.
-  - Supports asynchronous workflows with polling for image generation results.
-  - Fully configurable with support for API keys via environment variables.
-  - Easily integrates into Ruby and Rails applications.
+    - Generate stunning AI-powered images with minimal configuration.
+    - Simple Ruby interface for interacting with the Leonardo.ai API.
+    - Supports asynchronous workflows with polling for image generation results.
+    - Fully configurable with support for API keys via environment variables.
+    - Easily integrates into Ruby and Rails applications.
   FEATURES
 
   spec.license = "MIT"
