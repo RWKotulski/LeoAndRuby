@@ -34,8 +34,8 @@ module LeoAndRuby
     def get_generation(generation_id)
       uri = URI("#{API_BASE_URL}/generations/#{generation_id}")
       request = Net::HTTP::Get.new(uri)
-      request['Accept'] = 'application/json'
-      request['Authorization'] = "Bearer #{@api_key}"
+      request["Accept"] = "application/json"
+      request["Authorization"] = "Bearer #{@api_key}"
 
       response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
         http.request(request)
