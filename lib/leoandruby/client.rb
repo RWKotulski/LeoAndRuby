@@ -10,7 +10,7 @@ module LeoAndRuby
       @api_key = api_key
     end
 
-    def generate_image(prompt:, model_id:, width:, height:)
+    def generate_image(prompt:, model_id:, width:, height:, num_images: 1)
       uri = URI("#{API_BASE_URL}/generations")
       request = Net::HTTP::Post.new(uri)
       request["Accept"] = "application/json"
@@ -21,7 +21,8 @@ module LeoAndRuby
         prompt: prompt,
         modelId: model_id,
         width: width,
-        height: height
+        height: height,
+        num_images: num_images
       }.to_json
 
       response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
