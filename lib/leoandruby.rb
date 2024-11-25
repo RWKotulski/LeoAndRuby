@@ -2,7 +2,7 @@
 
 require_relative "leoandruby/version"
 require_relative "leoandruby/client"
-require_relative "../generators/leoandruby/webhook_generator"
+require_relative "generators/leoandruby/webhook_generator"
 
 module LeoAndRuby
   mattr_accessor :config
