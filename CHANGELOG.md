@@ -22,4 +22,8 @@
 
 ## [0.2.2] - 2024-11-22
 
-- Fixed: Another bug
+- Fixed: Another bug fix
+
+## [0.3.0] - 2024-11-25
+
+- Added: New feature allowing user to display a list of all the available models.

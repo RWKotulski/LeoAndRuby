@@ -45,6 +45,19 @@ module LeoAndRuby
       handle_response(response)
     end
 
+    def list_models
+      uri = URI("#{API_BASE_URL}/platformModels")
+      request = Net::HTTP::Get.new(uri)
+      request["Accept"] = "application/json"
+      request["Authorization"] = "Bearer #{@api_key}"
+
+      response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+        http.request(request)
+      end
+
+      handle_response(response)
+    end
+
     private
 
     def handle_response(response)

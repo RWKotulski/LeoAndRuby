@@ -73,7 +73,18 @@ generation_response = client.generate_image(
 generation_id = generation_response['sdGenerationJob']['generationId']
 ```
 
-### 3. Retrieve the Generated Image
+### 3. List Available Models
+
+You can fetch a list of all available platform models using the `list_models` method:
+
+```ruby
+models_response = client.list_models
+puts models_response
+```
+
+This will return a list of models available in the Leonardo.ai platform.
+
+### 4. Retrieve the Generated Image
 
 Wait a few seconds for the image to be generated, then retrieve it using the generation ID:
 
@@ -104,6 +115,32 @@ client = LeoAndRuby::Client.new(api_key)
 ```
 
 ---
+
+## Expected Response for List Models
+
+The `list_models` method will return a response in the following format:
+
+```json
+{
+  "custom_models": [
+    {
+      "id": "model_id_1",
+      "name": "Model Name 1",
+      "description": "Description of Model 1",
+      "nsfw": false,
+    },
+    {
+      "id": "model_id_2",
+      "name": "Model Name 2",
+      "description": "Description of Model 2",
+      "nsfw": false,
+    }
+    // More models...
+  ]
+}
+```
+
+Each model object contains the `id`, `name`, `description`, and `created_at` fields.
 
 ## Example Script
 
