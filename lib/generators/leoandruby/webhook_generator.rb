@@ -1,13 +1,15 @@
-module Generators
-  module LeoAndRuby
-    class WebhookGenerator
-      def initialize
-        # Initialization code here
-      end
+require 'rails/generators'
 
-      def generate
-        # Generation logic here
-      end
+module LeoAndRuby
+  class WebhookGenerator < Rails::Generators::Base
+    source_root File.expand_path('templates', __dir__)
+
+    def create_controller_file
+      copy_file 'leonardo_controller.rb', 'app/controllers/leonardo_controller.rb'
+    end
+
+    def add_route
+      route "post '/leonardo_webhook', to: 'leonardo#webhook'"
     end
   end
 end

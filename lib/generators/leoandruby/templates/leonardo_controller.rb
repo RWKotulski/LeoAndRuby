@@ -1,9 +1,10 @@
-class LeonardoController
-  def initialize
-    # Controller initialization code here
-  end
+class LeonardoController < ApplicationController
+  skip_before_action :verify_authenticity_token
 
-  def handle_request
-    # Request handling logic here
+  def webhook
+    payload = JSON.parse(request.body.read)
+    # TODO: Process the incoming webhook payload
+    Rails.logger.info("Received webhook: #{payload}")
+    render json: { status: 'success' }, status: :ok
   end
 end
