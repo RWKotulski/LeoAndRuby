@@ -1,6 +1,11 @@
 # Changelog
 
-## [0.4.0] - 2024-11-20
+## [0.4.1] - 2024-11-26
+
+- Improved: Compatibility with Ruby 3.3.0.
+
+
+## [0.4.0] - 2024-11-26
 ### Added
 - **Webhook Support**: Integrated Leonardo.ai's webhook feature to handle asynchronous image generation results. Applications can now automatically process results via a webhook callback.
 - **Rails Generator**: Added a generator to set up the webhook integration in Rails applications. This includes:
