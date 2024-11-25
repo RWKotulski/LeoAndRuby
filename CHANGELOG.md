@@ -1,6 +1,10 @@
 
 # Changelog
 
+## [0.4.3] - 2024-11-26
+
+- Fixed an issue with the directory structure reference.
+
 ## [0.4.2] - 2024-11-26
 
 ### Fixed
