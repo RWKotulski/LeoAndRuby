@@ -1,4 +1,19 @@
+
 # Changelog
+
+## [0.4.2] - 2024-11-26
+
+### Fixed
+- Resolved an issue where the Rails generator (`webhook_generator.rb`) was not included in the gem package, causing `LoadError` in Rails applications.
+
+### Added
+- Updated `.gemspec` to explicitly include the `lib/generators/**/*` directory, ensuring all generator files are packaged correctly.
+- Enhanced documentation for Rails generator usage and clarified the required setup steps.
+
+### Improved
+- Added safeguards to prevent similar packaging issues in future releases by ensuring proper gemspec configuration and file verification.
+
+---
 
 ## [0.4.1] - 2024-11-26
 
