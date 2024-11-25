@@ -1,10 +1,8 @@
-
 # LeoAndRuby
 
-**LeoAndRuby** is a Ruby gem for generating images using the [Leonardo.ai API](https://docs.leonardo.ai/docs/generate-your-first-images). With this gem, you can easily integrate Leonardo.ai's powerful image generation capabilities into your Ruby applications.
+**LeoAndRuby** is a Ruby gem for generating images using the [Leonardo.ai API](https://docs.leonardo.ai/docs/generate-your-first-images). With this gem, you can easily integrate Leonardo.ai's powerful image generation capabilities into your Ruby and Rails applications.
 
 [![Gem Version](https://badge.fury.io/rb/leoandruby.svg)](https://badge.fury.io/rb/leoandruby)
-
 
 ---
 
@@ -12,6 +10,9 @@
 
 - Generate images using Leonardo.ai's models.
 - Retrieve the status and result of a generated image.
+- List available models on the Leonardo.ai platform.
+- Webhook support to handle asynchronous image generation results.
+- Rails generator for setting up webhook integration effortlessly.
 - Simple and intuitive Ruby interface for interacting with the Leonardo.ai API.
 
 ---
@@ -41,6 +42,8 @@ gem install leoandruby
 ## Setup
 
 To use LeoAndRuby, you need an API key from Leonardo.ai. You can obtain it by signing up for an account and navigating to the API key section in your dashboard.
+
+For Rails users, you can generate a webhook controller and route using the built-in generator.
 
 ---
 
@@ -82,8 +85,6 @@ models_response = client.list_models
 puts models_response
 ```
 
-This will return a list of models available in the Leonardo.ai platform.
-
 ### 4. Retrieve the Generated Image
 
 Wait a few seconds for the image to be generated, then retrieve it using the generation ID:
@@ -97,54 +98,42 @@ puts image_response
 
 ---
 
-## Configuration
+## Webhook Integration (Rails)
 
-### Environment Variables
+LeoAndRuby supports asynchronous image generation through Leonardo.ai’s webhook feature. This allows your application to automatically process results when the image generation is complete.
 
-You can store your API key in an environment variable for security:
+### Generate a Webhook Controller
+
+Run the following command to generate a controller, route, and initializer for webhook integration:
 
 ```bash
-export LEOANDRUBY_API_KEY=your_api_key
+rails generate leoandruby:webhook
 ```
 
-Then, retrieve it in your code:
+This will:
+- Create `app/controllers/leonardo_controller.rb`.
+- Add a route to `config/routes.rb`:
+  ```ruby
+  post '/leonardo_webhook', to: 'leonardo#webhook'
+  ```
+- Add a configuration file to `config/initializers/leoandruby.rb` for managing the webhook token:
+  ```ruby
+  LeoAndRuby.config = {
+    webhook_token: ENV.fetch('LEONARDO_WEBHOOK_TOKEN', 'your_default_token_here')
+  }
+  ```
 
-```ruby
-api_key = ENV['LEOANDRUBY_API_KEY']
-client = LeoAndRuby::Client.new(api_key)
-```
+### Webhook Security
+
+The webhook controller verifies requests using an API token provided in the `Authorization` header. Configure your webhook token in an environment variable or directly in the initializer.
+
+Webhook requests without a valid token will be rejected with a `401 Unauthorized` status.
 
 ---
 
-## Expected Response for List Models
-
-The `list_models` method will return a response in the following format:
-
-```json
-{
-  "custom_models": [
-    {
-      "id": "model_id_1",
-      "name": "Model Name 1",
-      "description": "Description of Model 1",
-      "nsfw": false,
-    },
-    {
-      "id": "model_id_2",
-      "name": "Model Name 2",
-      "description": "Description of Model 2",
-      "nsfw": false,
-    }
-    // More models...
-  ]
-}
-```
-
-Each model object contains the `id`, `name`, `description`, and `created_at` fields.
-
 ## Example Script
 
-Here's a full example script:
+Here's a full example script for generating an image and retrieving it:
 
 ```ruby
 require 'leoandruby'
@@ -169,6 +158,33 @@ sleep(5)
 # Retrieve the generated image
 image_response = client.get_generation(generation_id)
 puts image_response
+```
+
+---
+
+## Configuration
+
+### API Key
+
+You can store your API key in an environment variable for security:
+
+```bash
+export LEOANDRUBY_API_KEY=your_api_key
+```
+
+Then, retrieve it in your code:
+
+```ruby
+api_key = ENV['LEOANDRUBY_API_KEY']
+client = LeoAndRuby::Client.new(api_key)
+```
+
+### Webhook Token
+
+To secure webhook requests, configure the `LEONARDO_WEBHOOK_TOKEN` environment variable:
+
+```bash
+export LEONARDO_WEBHOOK_TOKEN=your_webhook_token
 ```
 
 ---
@@ -201,5 +217,5 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Acknowledgments
 
 Special thanks to [Leonardo.ai](https://leonardo.ai/) for providing such an amazing image generation API.
-```
 
+---
