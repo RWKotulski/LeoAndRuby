@@ -9,8 +9,10 @@
 ## Features
 
 - Generate images using Leonardo.ai's models.
+- Generate images using user-customized elements.
 - Retrieve the status and result of a generated image.
 - List available models on the Leonardo.ai platform.
+- Fetch user information and custom elements.
 - Webhook support to handle asynchronous image generation results.
 - Rails generator for setting up webhook integration effortlessly.
 - Simple and intuitive Ruby interface for interacting with the Leonardo.ai API.
@@ -94,6 +96,52 @@ sleep(5)
 
 image_response = client.get_generation(generation_id)
 puts image_response
+```
+
+### 5. Generate an Image with User Elements
+
+You can generate an image using custom user elements by passing a list of objects containing id and weight:
+
+Example Usage:
+
+```ruby
+user_elements = [
+  { id: 26060, weight: 0.8 },
+  { id: 27868, weight: 1.2 }
+]
+
+generation_response = client.generate_image_with_user_elements(
+  prompt: "A birthday celebration scene",
+  model_id: "SDXL_0_9",
+  width: 1024,
+  height: 1024,
+  num_images: 2,
+  user_elements: user_elements
+)
+
+puts generation_response
+
+```
+
+### 6. Retrieve User Information
+
+To fetch details about the currently authenticated user:
+
+```ruby
+user_info = client.me
+puts user_info
+
+```
+
+### 7. Retrieve Custom Elements by User ID
+
+To get a list of custom elements associated with a specific user ID:
+
+```ruby
+user_id = "12345"
+custom_elements = client.get_custom_elements_by_user_id(user_id)
+puts custom_elements
+
 ```
 
 ---
