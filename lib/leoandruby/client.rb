@@ -32,7 +32,7 @@ module LeoAndRuby
       handle_response(response)
     end
 
-    def generate_image_with_user_elements(prompt:, model_id:, width:, height:, presetStyle: num_images: 1, promptMagic:, enhancePrompt:, user_elements:)
+    def generate_image_with_user_elements(prompt:, model_id:, width:, height:, presetStyle: ,num_images: 1, promptMagic:, enhancePrompt:, user_elements:)
       uri = URI("#{API_BASE_URL}/generations")
       request = Net::HTTP::Post.new(uri)
       request["Accept"] = "application/json"
