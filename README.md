@@ -115,7 +115,10 @@ generation_response = client.generate_image_with_user_elements(
   model_id: "SDXL_0_9",
   width: 1024,
   height: 1024,
-  num_images: 2,
+  presetStyle: "ILLUSTRATION",
+  num_images: 1,
+  promptMagic: true,
+  enhancePrompt: true,
   user_elements: user_elements
 )
 
