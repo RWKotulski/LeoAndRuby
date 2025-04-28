@@ -1,4 +1,21 @@
 # Changelog
+
+## [0.5.1] - 2025-04-28
+
+### Added
+- Enhanced error handling with detailed API response messages
+- Improved documentation for troubleshooting common API errors
+- Added support for model-specific parameter validation
+
+### Changed
+- Updated error handling to include API response body in error messages
+- Improved parameter validation for model-specific requirements
+
+### Fixed
+- Resolved issues with model ID validation
+- Fixed parameter handling for model-specific constraints
+- Addressed compatibility issues with Leonardo.ai API updates
+
 ## [0.4.5] - 2025-04-28
 ### Added
 - _Describe new features here._

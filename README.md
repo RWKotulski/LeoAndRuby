@@ -14,6 +14,7 @@
 - Webhook support to handle asynchronous image generation results.
 - Rails generator for setting up webhook integration effortlessly.
 - Simple and intuitive Ruby interface for interacting with the Leonardo.ai API.
+- Advanced image generation features including Alchemy, PhotoReal, and preset styles.
 
 ---
 
@@ -70,11 +71,26 @@ generation_response = client.generate_image(
   model_id: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
   width: 512,
   height: 512,
-  num_images: 1 # Optional, defaults to 1 if not specified
+  num_images: 1, # Optional, defaults to 1 if not specified
+  alchemy: true, # Optional, enables Alchemy feature
+  photo_real: true, # Optional, enables PhotoReal feature
+  photo_real_strength: 0.5, # Optional, controls PhotoReal effect strength (0.0 to 1.0)
+  preset_style: 'CINEMATIC' # Optional, applies preset styles
 )
 
 generation_id = generation_response['sdGenerationJob']['generationId']
 ```
+
+### Advanced Image Generation Options
+
+The `generate_image` method supports several advanced options to enhance your image generation:
+
+- `alchemy`: Enable/disable the Alchemy feature for enhanced image quality
+- `photo_real`: Enable/disable the PhotoReal feature for photorealistic results
+- `photo_real_strength`: Control the strength of the PhotoReal effect (0.0 to 1.0)
+- `preset_style`: Apply preset styles like 'CINEMATIC', 'ANIME', 'CREATIVE', etc.
+
+All advanced options are optional and can be used in combination to achieve the desired result.
 
 ### 3. List Available Models
 
@@ -100,7 +116,7 @@ puts image_response
 
 ## Webhook Integration (Rails)
 
-LeoAndRuby supports asynchronous image generation through Leonardo.ai’s webhook feature. This allows your application to automatically process results when the image generation is complete.
+LeoAndRuby supports asynchronous image generation through Leonardo.ai's webhook feature. This allows your application to automatically process results when the image generation is complete.
 
 ### Generate a Webhook Controller
 
@@ -147,7 +163,11 @@ generation_response = client.generate_image(
   model_id: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
   width: 1024,
   height: 768,
-  num_images: 1 # Optional, defaults to 1 if not specified
+  num_images: 1, # Optional, defaults to 1 if not specified
+  alchemy: true, # Enable Alchemy for enhanced quality
+  photo_real: true, # Enable PhotoReal for photorealistic results
+  photo_real_strength: 0.7, # Set PhotoReal strength
+  preset_style: 'CINEMATIC' # Apply cinematic style
 )
 
 generation_id = generation_response['sdGenerationJob']['generationId']
