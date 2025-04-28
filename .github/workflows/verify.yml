@@ -28,10 +28,10 @@ jobs:
         bundle config set path vendor/bundle
         bundle install --jobs 4 --retry 3
 
-    - name: Check Gemfile.lock is up to date
-      run: |
-        echo "🔎 Checking that Gemfile.lock is in sync with gemspec..."
-        bundle lock --check
+        - name: Check Gemfile.lock and installed gems
+        run: |
+          echo "🔎 Checking that Gemfile.lock and installed gems are in sync..."
+          bundle check      
 
     - name: Run code formatting (StandardRB)
       run: |
