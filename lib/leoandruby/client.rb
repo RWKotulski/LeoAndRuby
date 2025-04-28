@@ -81,18 +81,17 @@ module LeoAndRuby
         rescue JSON::ParserError
           error_message = response.body
         end
-    
+
         full_error = <<~ERROR
           Leonardo.ai API Error:
           HTTP Status: #{response.code} #{response.message}
           Response Body: #{error_message}
         ERROR
-    
+
         Rails.logger.error(full_error) if defined?(Rails)
         raise full_error.strip
 
       end
     end
-    
   end
 end
