@@ -1,5 +1,17 @@
-
 # Changelog
+
+## [0.4.4] - 2024-11-26
+
+### Added
+- **Enhanced Image Generation**: Added support for additional Leonardo.ai API parameters:
+  - `alchemy`: Enable/disable Alchemy feature
+  - `photoReal`: Enable/disable PhotoReal feature
+  - `photoRealStrength`: Control PhotoReal effect strength (0.0 to 1.0)
+  - `presetStyle`: Apply preset styles (e.g., "CINEMATIC")
+
+### Improved
+- Made new parameters optional to maintain backward compatibility
+- Enhanced request body construction to only include provided parameters
 
 ## [0.4.3] - 2024-11-26
 
