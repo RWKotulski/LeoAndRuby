@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.5.2] - 2025-04-29
+
+### Added
+- Improved API error handling for Leonardo.ai failures.
+- More detailed error logs to assist Rails diagnosis.
+
+### Fixed
+- Minor consistency improvements.
+
 ## [0.5.1] - 2025-04-28
 
 ### Added
