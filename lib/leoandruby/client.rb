@@ -10,7 +10,7 @@ module LeoAndRuby
       @api_key = api_key
     end
 
-    def generate_image(prompt:, model_id:, width:, height:, num_images: 1, alchemy: nil, photoReal: nil, photoRealStrength: nil, presetStyle: nil)
+    def generate_image(prompt:, model_id:, width:, height:, num_images: 1, alchemy: nil, photo_real: nil, photo_real_strength: nil, preset_style: nil)
       uri = URI("#{API_BASE_URL}/generations")
       request = Net::HTTP::Post.new(uri)
       request["Accept"] = "application/json"
@@ -25,9 +25,9 @@ module LeoAndRuby
         num_images: num_images
       }
       body[:alchemy] = alchemy unless alchemy.nil?
-      body[:photoReal] = photoReal unless photoReal.nil?
-      body[:photoRealStrength] = photoRealStrength unless photoRealStrength.nil?
-      body[:presetStyle] = presetStyle unless presetStyle.nil?
+      body[:photoReal] = photo_real unless photo_real.nil?
+      body[:photoRealStrength] = photo_real_strength unless photo_real_strength.nil?
+      body[:presetStyle] = preset_style unless preset_style.nil?
 
       request.body = body.to_json
 
