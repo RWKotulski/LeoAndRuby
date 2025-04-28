@@ -20,6 +20,8 @@ jobs:
       with:
         ruby-version: '3.3.0'
         bundler-cache: true
+        cache-version: 0
+      continue-on-error: true
 
     - name: Install dependencies
       run: |
