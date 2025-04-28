@@ -1,16 +1,34 @@
+# frozen_string_literal: true
+
 require "net/http"
 require "json"
 require "uri"
 
 module LeoAndRuby
   class Client
-    API_BASE_URL = "https://cloud.leonardo.ai/api/rest/v1".freeze
+    API_BASE_URL = "https://cloud.leonardo.ai/api/rest/v1"
+    DEFAULT_PHOTO_REAL_MODEL_ID = "aa77f04e-3eec-4034-9c07-d0f619684628"
 
     def initialize(api_key)
       @api_key = api_key
     end
 
-    def generate_image(prompt:, model_id:, width:, height:, num_images: 1, alchemy: nil, photo_real: nil, photo_real_strength: nil, preset_style: nil)
+    def generate_image(
+      prompt:, height:, width:,
+      model_id: nil,
+      negative_prompt: nil,
+      alchemy: true,
+      preset_style: "DYNAMIC",
+      photo_real: true,
+      photo_real_version: "v2",
+      num_images: 1
+    )
+      raise ArgumentError, "Prompt must be provided" if prompt.nil? || prompt.strip.empty?
+      raise ArgumentError, "Height must be provided" if height.nil?
+      raise ArgumentError, "Width must be provided" if width.nil?
+
+      model_id ||= DEFAULT_PHOTO_REAL_MODEL_ID
+
       uri = URI("#{API_BASE_URL}/generations")
       request = Net::HTTP::Post.new(uri)
       request["Accept"] = "application/json"
@@ -20,14 +38,16 @@ module LeoAndRuby
       body = {
         prompt: prompt,
         modelId: model_id,
-        width: width,
         height: height,
-        num_images: num_images
+        width: width,
+        num_images: num_images,
+        alchemy: alchemy,
+        presetStyle: preset_style,
+        photoReal: photo_real,
+        photoRealVersion: photo_real_version
       }
-      body[:alchemy] = alchemy unless alchemy.nil?
-      body[:photoReal] = photo_real unless photo_real.nil?
-      body[:photoRealStrength] = photo_real_strength unless photo_real_strength.nil?
-      body[:presetStyle] = preset_style unless preset_style.nil?
+
+      body[:negative_prompt] = negative_prompt unless negative_prompt.nil?
 
       request.body = body.to_json
 
@@ -88,9 +108,7 @@ module LeoAndRuby
           Response Body: #{error_message}
         ERROR
 
-        Rails.logger.error(full_error) if defined?(Rails)
         raise full_error.strip
-
       end
     end
   end

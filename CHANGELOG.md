@@ -1,5 +1,32 @@
 # Changelog
 
+## [0.5.3] - 2024-04-29
+
+### Added
+- Expanded `generate_image` method to support new parameters from Leonardo.ai's PhotoReal v2 API:
+  - `negative_prompt`
+  - `presetStyle`
+  - `photoRealVersion`
+- Introduced intelligent default values for key generation parameters:
+  - Defaults to **Kino XL** model if no `model_id` is provided.
+  - Defaults `alchemy` to `true`.
+  - Defaults `photoReal` to `true`.
+  - Defaults `photoRealVersion` to `"v2"`.
+  - Defaults `presetStyle` to `"DYNAMIC"`.
+- Added internal constant `DEFAULT_PHOTO_REAL_MODEL_ID` for clarity and maintainability.
+
+### Changed
+- Improved `handle_response` method to parse and log detailed Leonardo.ai error responses.
+- Enhanced error reporting to Rails logs for faster and more accurate debugging.
+- Introduced validation to raise informative `ArgumentError` if `prompt`, `height`, or `width` are missing when generating an image.
+
+### Fixed
+- Ensured `negative_prompt` is correctly handled as an optional parameter during image generation.
+
+---
+
+
+
 ## [0.5.2] - 2025-04-29
 
 ### Added
