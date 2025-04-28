@@ -4,7 +4,7 @@ require_relative "lib/leoandruby/version"
 
 Gem::Specification.new do |spec|
   spec.name = "leoandruby"
-  spec.version = Leoandruby::VERSION
+  spec.version = LeoAndRuby::VERSION
   spec.authors = ["Richard HW Baldwin"]
   spec.email = ["richard@empireofaustralia.com"]
 
