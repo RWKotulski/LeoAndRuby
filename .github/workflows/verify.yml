@@ -1,4 +1,4 @@
-name: Verify Gem Setup
+name: Verify Gem and Formatting
 
 on:
   pull_request:
@@ -21,19 +21,18 @@ jobs:
         ruby-version: '3.3.0'
         bundler-cache: true
         cache-version: 0
-      continue-on-error: true
+      continue-on-error: true  # ignore minor cache save conflicts
 
-    - name: Install dependencies
+    - name: Install and verify gems
       run: |
+        echo "🔧 Installing gems..."
         bundle config set path vendor/bundle
         bundle install --jobs 4 --retry 3
 
-        - name: Check Gemfile.lock and installed gems
-        run: |
-          echo "🔎 Checking that Gemfile.lock and installed gems are in sync..."
-          bundle check      
+        echo "🔎 Verifying installed gems and Gemfile.lock sync..."
+        bundle check
 
-    - name: Run code formatting (StandardRB)
+    - name: Run StandardRB formatting check
       run: |
         echo "🎨 Checking Ruby style..."
         bundle exec rake standard
