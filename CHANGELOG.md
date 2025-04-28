@@ -1,4 +1,14 @@
 # Changelog
+## [0.4.5] - 2025-04-28
+### Added
+- _Describe new features here._
+
+### Changed
+- _Describe changes here._
+
+### Fixed
+- _Describe fixes here._
+
 
 ## [0.4.4] - 2024-11-26
 
