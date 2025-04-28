@@ -1,0 +1,37 @@
+name: Verify Gem Setup
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  verify:
+    runs-on: ubuntu-22.04
+    name: Verify Gem and Formatting
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3.0'
+        bundler-cache: true
+
+    - name: Install dependencies
+      run: |
+        bundle config set path vendor/bundle
+        bundle install --jobs 4 --retry 3
+
+    - name: Check Gemfile.lock is up to date
+      run: |
+        echo "🔎 Checking that Gemfile.lock is in sync with gemspec..."
+        bundle lock --check
+
+    - name: Run code formatting (StandardRB)
+      run: |
+        echo "🎨 Checking Ruby style..."
+        bundle exec rake standard
