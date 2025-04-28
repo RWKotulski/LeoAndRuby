@@ -3,56 +3,54 @@
 require_relative "lib/leoandruby/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "leoandruby"
-  spec.version = LeoAndRuby::VERSION
-  spec.authors = ["Richard HW Baldwin"]
-  spec.email = ["richard@empireofaustralia.com"]
+  spec.name          = "leoandruby"
+  spec.version       = LeoAndRuby::VERSION
+  spec.authors       = ["Richard HW Baldwin"]
+  spec.email         = ["richard@empireofaustralia.com"]
 
-  spec.description = "LeoAndRuby is a Ruby gem for integrating with the Leonardo.ai API, enabling seamless image generation within Ruby applications. It provides a simple and intuitive interface for creating, managing, and retrieving AI-generated images."
-
-  spec.summary = "A Ruby gem for generating AI-powered images with Leonardo.ai's API."
-
-  spec.homepage = "https://github.com/RWKotulski/LeoAndRuby"
-
-  spec.metadata = {
-    "homepage_uri" => spec.homepage,
-    "source_code_uri" => "https://github.com/RWKotulski/LeoAndRuby",
-    "changelog_uri" => "https://github.com/RWKotulski/LeoAndRuby/CHANGELOG.md"
-  }
-
-  # Optional, in case you want to highlight features
-  spec.metadata["features"] = <<~FEATURES
-    - Generate stunning AI-powered images with minimal configuration.
-    - Simple Ruby interface for interacting with the Leonardo.ai API.
-    - Supports asynchronous workflows with polling for image generation results.
-    - Fully configurable with support for API keys via environment variables.
-    - Easily integrates into Ruby and Rails applications.
-    - Webhook support with Rails generator for seamless integration.
-  FEATURES
-
-  spec.license = "MIT"
+  spec.summary       = "A Ruby gem for generating AI-powered images with Leonardo.ai's API."
+  spec.description   = "LeoAndRuby integrates with the Leonardo.ai API, enabling seamless AI-powered image generation in Ruby and Rails applications with simple, intuitive interfaces."
+  spec.homepage      = "https://github.com/RWKotulski/LeoAndRuby"
+  spec.license       = "MIT"
   spec.required_ruby_version = ">= 3.0.0"
 
-  # Specify which files should be added to the gem when it is released.
-  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
-  gemspec = File.basename(__FILE__)
+  spec.metadata = {
+    "homepage_uri"     => spec.homepage,
+    "source_code_uri"  => "https://github.com/RWKotulski/LeoAndRuby",
+    "changelog_uri"    => "https://github.com/RWKotulski/LeoAndRuby/CHANGELOG.md",
+    "documentation_uri"=> "https://rubydoc.info/gems/leoandruby",
+    "bug_tracker_uri"  => "https://github.com/RWKotulski/LeoAndRuby/issues",
+    "features"         => <<~FEATURES
+      - Generate stunning AI-powered images with minimal configuration.
+      - Simple Ruby interface for interacting with the Leonardo.ai API.
+      - Supports asynchronous workflows with polling or webhook callbacks.
+      - Fully configurable with API key environment variables.
+      - Webhook support with Rails generator for seamless integration.
+      - Rails 6+ compatible.
+    FEATURES
+  }
+
+  # Files included in the gem
+  gemspec_filename = File.basename(__FILE__)
+
   spec.files = IO.popen(%w[git ls-files -z], chdir: __dir__, err: IO::NULL) do |ls|
     ls.readlines("\x0", chomp: true).reject do |f|
-      (f == gemspec) ||
-        f.start_with?(*%w[bin/ test/ spec/ features/ .git .github appveyor Gemfile])
+      (f == gemspec_filename) ||
+      (f.end_with?('.gem')) ||                                  # Exclude any built gem files
+      f.start_with?(*%w[bin/ test/ spec/ features/ .git .github appveyor Gemfile])
     end
   end
 
-  # Ensure the generators directory is included in the gemspec
+  # Add generators explicitly if necessary
   spec.files += Dir.glob("lib/generators/**/*")
 
-  spec.bindir = "exe"
-  spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
+  spec.bindir        = "exe"
+  spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  # Uncomment to register a new dependency of your gem
+  # Runtime dependencies
   spec.add_dependency "rails", ">= 6.0"
 
-  # For more information and examples about making a new gem, check out our
-  # guide at: https://bundler.io/guides/creating_gem.html
+  # (Optional) You could also add 'standard' as development dependency:
+  # spec.add_development_dependency "standard", "~> 1.0"
 end
