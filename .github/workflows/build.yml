@@ -1,0 +1,57 @@
+name: Build and Audit Gem
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    name: Build and Audit
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3.0'
+        bundler-cache: true
+        cache-version: 0
+      continue-on-error: true
+
+    - name: Install dependencies
+      run: |
+        echo "🔧 Installing gems..."
+        bundle config set path vendor/bundle
+        bundle install --jobs 4 --retry 3
+
+    - name: Verify installed gems
+      run: |
+        echo "🔎 Verifying Gemfile.lock is in sync and gems are installed..."
+        bundle check
+
+    - name: Audit gems for vulnerabilities
+      run: |
+        echo "🔐 Running security audit..."
+        gem install bundler-audit --no-document
+        bundle audit check --update
+
+    - name: Build the gem
+      run: |
+        echo "📦 Building the gem..."
+        gem build leoandruby.gemspec
+
+    - name: Confirm version matches tag (optional step for future auto-releases)
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        echo "🔖 Verifying gem version matches tag..."
+        VERSION_TAG="${GITHUB_REF#refs/tags/v}"
+        GEM_VERSION=$(ruby -e "require './lib/leoandruby/version'; puts LeoAndRuby::VERSION")
+        if [ "$VERSION_TAG" != "$GEM_VERSION" ]; then
+          echo "🚨 Version mismatch! Tag: $VERSION_TAG vs Gem: $GEM_VERSION"
+          exit 1
+        fi
