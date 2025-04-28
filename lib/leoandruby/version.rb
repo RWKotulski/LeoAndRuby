@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-module Leoandruby
-  VERSION = "0.4.3"
+module LeoAndRuby
+  VERSION = "0.4.4"
 end
