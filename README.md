@@ -74,7 +74,6 @@ generation_response = client.generate_image(
   num_images: 1, # Optional, defaults to 1 if not specified
   alchemy: true, # Optional, enables Alchemy feature
   photo_real: true, # Optional, enables PhotoReal feature
-  photo_real_strength: 0.5, # Optional, controls PhotoReal effect strength (0.0 to 1.0)
   preset_style: 'CINEMATIC' # Optional, applies preset styles
 )
 
@@ -87,7 +86,6 @@ The `generate_image` method supports several advanced options to enhance your im
 
 - `alchemy`: Enable/disable the Alchemy feature for enhanced image quality
 - `photo_real`: Enable/disable the PhotoReal feature for photorealistic results
-- `photo_real_strength`: Control the strength of the PhotoReal effect (0.0 to 1.0)
 - `preset_style`: Apply preset styles like 'CINEMATIC', 'ANIME', 'CREATIVE', etc.
 
 All advanced options are optional and can be used in combination to achieve the desired result.
@@ -166,7 +164,6 @@ generation_response = client.generate_image(
   num_images: 1, # Optional, defaults to 1 if not specified
   alchemy: true, # Enable Alchemy for enhanced quality
   photo_real: true, # Enable PhotoReal for photorealistic results
-  photo_real_strength: 0.7, # Set PhotoReal strength
   preset_style: 'CINEMATIC' # Apply cinematic style
 )
 
